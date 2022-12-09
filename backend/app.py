@@ -32,7 +32,6 @@ def helloWorld():
 
 @app.route('/sentiment', methods=['POST'])
 def sentiment():
-  print("function working")
   request_data = request.get_json()
 
 
@@ -40,7 +39,7 @@ def sentiment():
   text = request_data['text']
 
   # log the request
-  print(f'Received request for sentiment analysis of text: {text}')
+  logger.info(f'Received request for sentiment analysis of text: {text}')
   
   # analyze the sentiment of the text
   scores = sid.polarity_scores(text)
