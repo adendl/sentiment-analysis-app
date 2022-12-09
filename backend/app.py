@@ -1,6 +1,7 @@
 from flask import Flask, request
 import logging
 import nltk
+nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # create the Flask app
@@ -24,13 +25,22 @@ handler.setFormatter(formatter)
 # add the file handler to the logger
 logger.addHandler(handler)
 
+@app.route('/helloWorld', methods=['GET'])
+def helloWorld():
+    text = "Hello world"
+    return text
+
 @app.route('/sentiment', methods=['POST'])
 def sentiment():
+  print("function working")
+  request_data = request.get_json()
+
+
   # get the text from the request
-  text = request.form.get('text')
+  text = request_data['text']
 
   # log the request
-  logger.info(f'Received request for sentiment analysis of text: {text}')
+  print(f'Received request for sentiment analysis of text: {text}')
   
   # analyze the sentiment of the text
   scores = sid.polarity_scores(text)
@@ -44,10 +54,10 @@ def sentiment():
     sentiment = 'neutral'
 
   # log the result
-  logger.info(f'Sentiment of text: {sentiment}')
+  print(f'Sentiment of text: {sentiment}')
 
   # return the sentiment classification
   return sentiment
 
-if __name__ == '__main__':
-  app.run()
+
+app.run()
