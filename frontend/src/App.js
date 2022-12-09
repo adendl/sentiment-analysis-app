@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import postSentiment from './AppController'
 
 class App extends React.Component {
   state = {
@@ -8,7 +9,7 @@ class App extends React.Component {
   };
 
   handleSubmit = () => {
-    // Do something with the text when the form is submitted
+    postSentiment(this.state.text)
   };
 
   render() {
