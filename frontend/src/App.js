@@ -1,15 +1,28 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import AppController from './AppController';
 
 class App extends React.Component {
   state = {
     text: '',
+    sentiment: ''
   };
 
   handleSubmit = () => {
-    // Do something with the text when the form is submitted
+    try {
+      const appController = new AppController();
+      const sentiment = appController.postSentiment(this.state.text)
+      this.updateSentimentState(sentiment);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  updateSentimentState = (textSentiment) => {
+    this.setState({sentiment: textSentiment});
+    console.log(`the sentiment value is currently: ${this.state.sentiment}`);
+  }
 
   render() {
     const containerStyles = {
@@ -17,6 +30,7 @@ class App extends React.Component {
       flexWrap: 'wrap',
       backgroundColor: '#0B3C5D',
       padding: '16px',
+      align: "center"
     };
 
     const textFieldStyles = {
@@ -58,6 +72,7 @@ class App extends React.Component {
             Submit
           </Button>
         </form>
+        <h1 id="sentiment">{this.state.sentiment}</h1> 
       </div>
     );
   }
