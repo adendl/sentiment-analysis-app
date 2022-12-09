@@ -11,6 +11,7 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 RUN pip install nltk
 RUN pip install flask
+RUN pip install flask_cors
 # copy the app files
 COPY app.py /app/app.py
 

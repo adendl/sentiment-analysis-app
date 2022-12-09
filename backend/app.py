@@ -1,11 +1,14 @@
 from flask import Flask, request
 import logging
 import nltk
+from flask_cors import CORS
+
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # create the Flask app
 app = Flask(__name__)
+CORS(app)
 
 # create the SentimentIntensityAnalyzer
 sid = SentimentIntensityAnalyzer()

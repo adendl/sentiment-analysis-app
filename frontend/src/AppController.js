@@ -1,22 +1,34 @@
 import axios from 'axios';
 
 class AppController{
-    localHost = "127.0.0.1:5000"
+    constructor()
+    {
+    }
+   
+    async postSentiment(requestText){
+        const data = {
+            text: requestText
+        }
 
-    postSentiment = (requestText) => {
-    const data = {
-        text: requestText
-    }
-    axios.post(`${this.localHost}/sentiment`, data)
-    .then(response => {
-        // Handle the successful response from the server
-        console.log(response.data);
-    })
-    .catch(error => {
-        // Handle any error that occurred during the request
-        console.error(error);
-    });
-    }
+        const customConfig = {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }
+
+        const response = await axios.post("http://localhost:5000/sentiment", JSON.stringify(data), customConfig)
+        .then(response => {
+            // Handle the successful response from the server
+            return response.data
+        })
+        .catch(error => {
+            // Handle any error that occurred during the request
+            console.error(error);
+            return "there was an error"
+        });
+        return `Sentiment: ${response}`
+    };
+
 }
 
 export default AppController
