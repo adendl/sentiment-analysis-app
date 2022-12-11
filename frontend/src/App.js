@@ -11,18 +11,17 @@ class App extends React.Component {
 
   handleSubmit = () => {
     try {
-      const appController = new AppController();
+      const appController = new AppController(this);
       const sentiment = appController.postSentiment(this.state.text)
-      this.updateSentimentState(sentiment);
     } catch (error) {
       console.log(error);
     }
   };
 
-  updateSentimentState = (textSentiment) => {
+  updateSentimentState(textSentiment){
     this.setState({sentiment: textSentiment});
     console.log(`the sentiment value is currently: ${this.state.sentiment}`);
-  }
+  };
 
   render() {
     const containerStyles = {
